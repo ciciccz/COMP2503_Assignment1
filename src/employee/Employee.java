@@ -1,5 +1,10 @@
 package employee;
 
+/**
+ * 
+ * @author Colin Cui and rafaelalarcon
+ *
+ */
 public class Employee {
 	private int empNo;
 	private String empName;
@@ -9,6 +14,16 @@ public class Employee {
 	private double maxHours;
 	
 	
+	/**
+	 * 
+	 * @param empNo
+	 * @param empName
+	 * @param deparment
+	 * @param type
+	 * @param payRate
+	 * @param maxHours
+	 * @author Colin Cui and rafaelalarcon
+	 */
 	public Employee(int empNo, String empName, String deparment, char type, double payRate, double maxHours) {
 		super();
 		this.empNo = empNo;
@@ -19,6 +34,14 @@ public class Employee {
 		this.maxHours = maxHours;
 	}
 	
+	/**
+	 * 
+	 * @param employee
+	 * @param empNo
+	 * @param empName
+	 * @param deparment
+	 * @author Colin Cui and rafaelalarcon
+	 */
 	public Employee(Employee employee, int empNo, String empName, String deparment) {
 		this.empNo = empNo;
 		this.empName = empName;
@@ -28,6 +51,9 @@ public class Employee {
 		this.maxHours = employee.maxHours;
 	}
 	
+	/**
+	 * @author Colin Cui and rafaelalarcon
+	 */
 	public Employee() {
 		empNo = 0;
 		empName = null;
@@ -37,65 +63,131 @@ public class Employee {
 	}
 
 
+	/**
+	 * 
+	 * @return
+	 * @author Colin Cui and rafaelalarcon
+	 */
 	public int getEmpNo() {
 		return empNo;
 	}
 
 
+	/**
+	 * 
+	 * @param empNo
+	 * @author Colin Cui and rafaelalarcon
+	 */
 	public void setEmpNo(int empNo) {
 		this.empNo = empNo;
 	}
 
-
+	
+	/**
+	 * 
+	 * @return empName String with the employee name
+	 * @author Colin Cui and rafaelalarcon
+	 */
 	public String getEmpName() {
 		return empName;
 	}
 
 
+	/**
+	 * 
+	 * @param empName
+	 * @author Colin Cui and rafaelalarcon
+	 */
 	public void setEmpName(String empName) {
 		this.empName = empName;
 	}
 
 
+	/**
+	 * 
+	 * @return
+	 * @author Colin Cui and rafaelalarcon
+	 */
 	public String getDeparment() {
 		return deparment;
 	}
 
 
+	/**
+	 * 
+	 * @param deparment
+	 * @author Colin Cui and rafaelalarcon
+	 */
 	public void setDeparment(String deparment) {
 		this.deparment = deparment;
 	}
 
 
+	/**
+	 * 
+	 * @return
+	 * @author Colin Cui and rafaelalarcon
+	 */
 	public char getType() {
 		return type;
 	}
 
 
+	/**
+	 * 
+	 * @param type
+	 * @author Colin Cui and rafaelalarcon
+	 */
 	public void setType(char type) {
 		this.type = type;
 	}
 
 
+	/**
+	 * 
+	 * @return
+	 * @author Colin Cui and rafaelalarcon
+	 */
 	public double getPayRate() {
 		return payRate;
 	}
 
 
+	/**
+	 * 
+	 * @param payRate
+	 * @author Colin Cui and rafaelalarcon
+	 */
 	public void setPayRate(double payRate) {
 		this.payRate = payRate;
 	}
 
 
+	/**
+	 * 
+	 * @return
+	 * @author Colin Cui and rafaelalarcon
+	 */
 	public double getMaxHours() {
 		return maxHours;
 	}
 
 
+	/**
+	 * 
+	 * @param maxHours
+	 * @author Colin Cui and rafaelalarcon
+	 */
 	public void setMaxHours(double maxHours) {
 		this.maxHours = maxHours;
 	} 
 	
+	/**
+	 * 
+	 * @param hoursWorked
+	 * @return
+	 * @author Colin Cui and rafaelalarcon
+	 */
 	public double calcGrossPay(double hoursWorked) {
 		switch (type) {
 		case 'S':
