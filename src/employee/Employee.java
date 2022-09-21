@@ -189,15 +189,43 @@ public class Employee {
 	 * @author Colin Cui and rafaelalarcon
 	 */
 	public double calcGrossPay(double hoursWorked) {
-		switch (type) {
-		case 'S':
+		if (type == 'S') {			
 			return payRate / 52;
-		case 'H':
+		}
+		
+		if (type == 'H') {			
 			if (hoursWorked > 40) {
 				return payRate * 40 + (hoursWorked - 40) * payRate * 1.5;
 			}
 			return payRate * hoursWorked;
 		}
-		return payRate * hoursWorked;
+		
+		if (type == 'C') {
+			if (hoursWorked > maxHours) {
+				return payRate * maxHours;
+			}
+			return payRate * hoursWorked;
+		}
+		
+		else {
+			return 0;
+		}
+	}
+	
+	public double calcWithhold(double grossWkPay) {
+		
+	}
+	
+	public double calcCPP(double grossWkPay) {
+		return 
+	}
+	
+	public double calcEI(double grossWkPay) {
+	}
+	
+	public double calcExtHealth(double grossWkPay) {
+	}
+	
+	public double calcUnionDues(double grossWkPay) {
 	}
 }
