@@ -189,13 +189,22 @@ public class Employee {
 	 * @author Colin Cui
 	 */
 	public double calcGrossPay(double hoursWorked) {
+		
+		final int numYearlyWeeks = 52;
+		final int weeklyHours = 40;
+		final int weeklyMaxHours = 60;
+		final double overTimePayIncrease = 1.5;
+		
 		if (type == 'S') {			
-			return payRate / 52;
+			return payRate / numYearlyWeeks;
 		}
 		
 		if (type == 'H') {			
-			if (hoursWorked > 40) {
-				return payRate * 40 + (hoursWorked - 40) * payRate * 1.5;
+			if (hoursWorked > weeklyMaxHours) {
+				return payRate * weeklyHours + payRate * overTimePayIncrease * (weeklyMaxHours - weeklyHours);
+			}
+			if (hoursWorked > weeklyHours) {
+				return payRate * weeklyHours + (hoursWorked - weeklyHours) * payRate * overTimePayIncrease;
 			}
 			return payRate * hoursWorked;
 		}
@@ -217,8 +226,8 @@ public class Employee {
 	 */
 	public double calcWithhold(double grossWkPay) {
 		
-		double firstTaxBracket = 1000 * 0.075;
-		double secondTaxBracket = 1000 * 0.12;
+		final double firstTaxBracket = 1000 * 0.075;
+		final double secondTaxBracket = 1000 * 0.12;
 		
 		if (grossWkPay < 1000) {
 			return grossWkPay * 0.075;
