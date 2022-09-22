@@ -22,7 +22,7 @@ public class Employee {
 	 * @param type
 	 * @param payRate
 	 * @param maxHours
-	 * @author Colin Cui and rafaelalarcon
+	 * @author Colin Cui
 	 */
 	public Employee(int empNo, String empName, String deparment, char type, double payRate, double maxHours) {
 		super();
@@ -40,7 +40,7 @@ public class Employee {
 	 * @param empNo
 	 * @param empName
 	 * @param deparment
-	 * @author Colin Cui and rafaelalarcon
+	 * @author Colin Cui
 	 */
 	public Employee(Employee employee, int empNo, String empName, String deparment) {
 		this.empNo = empNo;
@@ -52,7 +52,7 @@ public class Employee {
 	}
 	
 	/**
-	 * @author Colin Cui and rafaelalarcon
+	 * @author Colin Cui
 	 */
 	public Employee() {
 		empNo = 0;
@@ -66,7 +66,7 @@ public class Employee {
 	/**
 	 * 
 	 * @return
-	 * @author Colin Cui and rafaelalarcon
+	 * @author Colin Cui
 	 */
 	public int getEmpNo() {
 		return empNo;
@@ -76,7 +76,7 @@ public class Employee {
 	/**
 	 * 
 	 * @param empNo
-	 * @author Colin Cui and rafaelalarcon
+	 * @author Colin Cui
 	 */
 	public void setEmpNo(int empNo) {
 		this.empNo = empNo;
@@ -86,7 +86,7 @@ public class Employee {
 	/**
 	 * 
 	 * @return empName String with the employee name
-	 * @author Colin Cui and rafaelalarcon
+	 * @author Colin Cui
 	 */
 	public String getEmpName() {
 		return empName;
@@ -96,7 +96,7 @@ public class Employee {
 	/**
 	 * 
 	 * @param empName
-	 * @author Colin Cui and rafaelalarcon
+	 * @author Colin Cui
 	 */
 	public void setEmpName(String empName) {
 		this.empName = empName;
@@ -106,7 +106,7 @@ public class Employee {
 	/**
 	 * 
 	 * @return
-	 * @author Colin Cui and rafaelalarcon
+	 * @author Colin Cui
 	 */
 	public String getDeparment() {
 		return deparment;
@@ -116,7 +116,7 @@ public class Employee {
 	/**
 	 * 
 	 * @param deparment
-	 * @author Colin Cui and rafaelalarcon
+	 * @author Colin Cui
 	 */
 	public void setDeparment(String deparment) {
 		this.deparment = deparment;
@@ -126,7 +126,7 @@ public class Employee {
 	/**
 	 * 
 	 * @return
-	 * @author Colin Cui and rafaelalarcon
+	 * @author Colin Cui
 	 */
 	public char getType() {
 		return type;
@@ -136,7 +136,7 @@ public class Employee {
 	/**
 	 * 
 	 * @param type
-	 * @author Colin Cui and rafaelalarcon
+	 * @author Colin Cui
 	 */
 	public void setType(char type) {
 		this.type = type;
@@ -146,7 +146,7 @@ public class Employee {
 	/**
 	 * 
 	 * @return
-	 * @author Colin Cui and rafaelalarcon
+	 * @author Colin Cui 
 	 */
 	public double getPayRate() {
 		return payRate;
@@ -156,7 +156,7 @@ public class Employee {
 	/**
 	 * 
 	 * @param payRate
-	 * @author Colin Cui and rafaelalarcon
+	 * @author Colin Cui
 	 */
 	public void setPayRate(double payRate) {
 		this.payRate = payRate;
@@ -166,7 +166,7 @@ public class Employee {
 	/**
 	 * 
 	 * @return
-	 * @author Colin Cui and rafaelalarcon
+	 * @author Colin Cui
 	 */
 	public double getMaxHours() {
 		return maxHours;
@@ -176,7 +176,7 @@ public class Employee {
 	/**
 	 * 
 	 * @param maxHours
-	 * @author Colin Cui and rafaelalarcon
+	 * @author Colin Cui
 	 */
 	public void setMaxHours(double maxHours) {
 		this.maxHours = maxHours;
@@ -185,8 +185,8 @@ public class Employee {
 	/**
 	 * 
 	 * @param hoursWorked
-	 * @return
-	 * @author Colin Cui and rafaelalarcon
+	 * @return amount of gross pay per week
+	 * @author Colin Cui
 	 */
 	public double calcGrossPay(double hoursWorked) {
 		if (type == 'S') {			
@@ -205,27 +205,66 @@ public class Employee {
 				return payRate * maxHours;
 			}
 			return payRate * hoursWorked;
-		}
-		
+		}	
 		else {
 			return 0;
 		}
 	}
-	
+	/**
+	 * 
+	 * @param grossWkPay
+	 * @return amount of deduction from Federal Income Tax
+	 */
 	public double calcWithhold(double grossWkPay) {
 		
+		double firstTaxBracket = 1000 * 0.075;
+		double secondTaxBracket = 1000 * 0.12;
+		
+		if (grossWkPay < 1000) {
+			return grossWkPay * 0.075;
+		}
+		if (grossWkPay < 2000 && grossWkPay > 1000) {
+			return (grossWkPay - 1000) * 0.12 + firstTaxBracket;
+		}
+		return (grossWkPay - 2000) * 0.17 + firstTaxBracket + secondTaxBracket;
+			
 	}
-	
+	/**
+	 * 
+	 * @param grossWkPay
+	 * @return amount of deduction from CPP
+	 */
 	public double calcCPP(double grossWkPay) {
-		return 
+		return grossWkPay * 0.0475;
 	}
-	
+	/**
+	 * 
+	 * @param grossWkPay
+	 * @return amount of deduction from EI
+	 */
 	public double calcEI(double grossWkPay) {
+		return grossWkPay * 0.018;
 	}
-	
+	/**
+	 * 
+	 * @param grossWkPay
+	 * @return amount of deduction from Extended Health Benefit
+	 */
 	public double calcExtHealth(double grossWkPay) {
+		if (type == 'S' || type == 'H') {			
+			return grossWkPay * 0.013;
+		}
+		return 0;
 	}
-	
+	/**
+	 * 
+	 * @param grossWkPay
+	 * @return amount of deduction from union dues
+	 */
 	public double calcUnionDues(double grossWkPay) {
+		if (type == 'H') {
+			return grossWkPay * 0.01;
+		}
+		return 0;
 	}
 }
