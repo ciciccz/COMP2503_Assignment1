@@ -197,21 +197,21 @@ public class Employee {
 	 */
 	public double calcGrossPay(double hoursWorked) {
 
-		final int numYearlyWeeks = 52;
-		final int weeklyHours = 40;
-		final int weeklyMaxHours = 60;
-		final double overTimePayIncrease = 1.5;
+		final int NUM_YEARLY_WEEKS = 52;
+		final int WEEKLY_HOURS = 40;
+		final int WEEKLY_MAX_HOURS = 60;
+		final double OVERTIME_PAY_INCREASE = 1.5;
 
 		if (type == 'S') {
-			return payRate / numYearlyWeeks;
+			return payRate / NUM_YEARLY_WEEKS;
 		}
 
 		if (type == 'H') {
-			if (hoursWorked > weeklyMaxHours) {
-				return payRate * weeklyHours + payRate * overTimePayIncrease * (weeklyMaxHours - weeklyHours);
+			if (hoursWorked > WEEKLY_MAX_HOURS) {
+				return payRate * WEEKLY_HOURS + payRate * OVERTIME_PAY_INCREASE * (WEEKLY_MAX_HOURS - WEEKLY_HOURS);
 			}
-			if (hoursWorked > weeklyHours) {
-				return payRate * weeklyHours + (hoursWorked - weeklyHours) * payRate * overTimePayIncrease;
+			if (hoursWorked > WEEKLY_HOURS) {
+				return payRate * WEEKLY_HOURS + (hoursWorked - WEEKLY_HOURS) * payRate * OVERTIME_PAY_INCREASE;
 			}
 			return payRate * hoursWorked;
 		}
@@ -234,16 +234,16 @@ public class Employee {
 	 */
 	public double calcWithhold(double grossWkPay) {
 
-		final double firstTaxBracket = 1000 * 0.075;
-		final double secondTaxBracket = 1000 * 0.12;
+		final double FIRST_TAX_BRACKET = 1000 * 0.075;
+		final double SECOND_TAX_BRACKET = 1000 * 0.12;
 
 		if (grossWkPay < 1000) {
 			return grossWkPay * 0.075;
 		}
 		if (grossWkPay < 2000 && grossWkPay > 1000) {
-			return (grossWkPay - 1000) * 0.12 + firstTaxBracket;
+			return (grossWkPay - 1000) * 0.12 + FIRST_TAX_BRACKET;
 		}
-		return (grossWkPay - 2000) * 0.17 + firstTaxBracket + secondTaxBracket;
+		return (grossWkPay - 2000) * 0.17 + FIRST_TAX_BRACKET + SECOND_TAX_BRACKET;
 
 	}
 
