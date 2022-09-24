@@ -8,6 +8,15 @@ package employee;
  */
 public class Employee {
 
+	// Constant used to process weekly gross pay, deductions, and net pay
+	public static final int NUM_YEARLY_WEEKS = 52;
+	public static final int WEEKLY_HOURS = 40;
+	public static final int WEEKLY_MAX_HOURS = 60;
+	public static final double OVERTIME_PAY_INCREASE = 1.5;
+	public static final char EMPLOYEE_TYPE_SALARY = 'S';
+	public static final char EMPLOYEE_TYPE_HOURLY = 'H';
+	public static final char EMPLOYEE_TYPE_CONTRACTOR = 'C';
+
 	// Fields for Employee class
 	private int empNo;
 	private String empName;
@@ -197,16 +206,10 @@ public class Employee {
 	 */
 	public double calcGrossPay(double hoursWorked) {
 
-		final int NUM_YEARLY_WEEKS = 52;
-		final int WEEKLY_HOURS = 40;
-		final int WEEKLY_MAX_HOURS = 60;
-		final double OVERTIME_PAY_INCREASE = 1.5;
-
-		if (type == 'S') {
+		switch (type) {
+		case EMPLOYEE_TYPE_SALARY:
 			return payRate / NUM_YEARLY_WEEKS;
-		}
-
-		if (type == 'H') {
+		case EMPLOYEE_TYPE_HOURLY:
 			if (hoursWorked > WEEKLY_MAX_HOURS) {
 				return payRate * WEEKLY_HOURS + payRate * OVERTIME_PAY_INCREASE * (WEEKLY_MAX_HOURS - WEEKLY_HOURS);
 			}
@@ -214,20 +217,19 @@ public class Employee {
 				return payRate * WEEKLY_HOURS + (hoursWorked - WEEKLY_HOURS) * payRate * OVERTIME_PAY_INCREASE;
 			}
 			return payRate * hoursWorked;
-		}
-
-		if (type == 'C') {
+		case EMPLOYEE_TYPE_CONTRACTOR:
 			if (hoursWorked > maxHours) {
 				return payRate * maxHours;
 			}
 			return payRate * hoursWorked;
-		} else {
+		default:
 			return 0;
 		}
 	}
 
 	/**
 	 * Method to calculate employee's federal income tax deductions
+	 * 
 	 * @param grossWkPay double with employee's gross pay per week
 	 * @return double with employee's deducted amount from Federal Income Tax
 	 * @author Colin Cui and rafaelalarcon
@@ -239,8 +241,7 @@ public class Employee {
 
 		if (grossWkPay < 1000) {
 			return grossWkPay * 0.075;
-		}
-		if (grossWkPay < 2000 && grossWkPay > 1000) {
+		} else if (grossWkPay < 2000) {
 			return (grossWkPay - 1000) * 0.12 + FIRST_TAX_BRACKET;
 		}
 		return (grossWkPay - 2000) * 0.17 + FIRST_TAX_BRACKET + SECOND_TAX_BRACKET;
@@ -249,6 +250,7 @@ public class Employee {
 
 	/**
 	 * Method to calculate employee's CPP deduction
+	 * 
 	 * @param grossWkPay double with employee's gross pay per week
 	 * @return double with employees deducted amount from CPP
 	 * @author Colin Cui and rafaelalarcon
@@ -259,6 +261,7 @@ public class Employee {
 
 	/**
 	 * Method to calculate employee's EI deduction
+	 * 
 	 * @param grossWkPay double with employees gross pay per week
 	 * @return double with employee's deducted amount from EI
 	 * @author Colin Cui and rafaelalarcon
@@ -269,6 +272,7 @@ public class Employee {
 
 	/**
 	 * Method to calculate employees' extended health benefit deduction
+	 * 
 	 * @param grossWkPay double with employees gross pay per week
 	 * @return double with employee's deducted amount from extended health benefit
 	 * @author Colin Cui and rafaelalarcon
@@ -282,6 +286,7 @@ public class Employee {
 
 	/**
 	 * Method to calculate employee's union dues deduction
+	 * 
 	 * @param grossWkPay double with employees gross pay per week
 	 * @return double with employee's deducted amount from union dues
 	 * @author Colin Cui and rafaelalarcon
@@ -291,5 +296,53 @@ public class Employee {
 			return grossWkPay * 0.01;
 		}
 		return 0;
+	}
+
+	// TODO develop Net Pay calculation
+	public double calcNetPay(double grossPay) {
+		switch (type) {
+		case EMPLOYEE_TYPE_SALARY:
+			double salaryTaxDeductedPay = commonDeductions(grossPay) - calcExtHealth(grossPay);
+			return salaryTaxDeductedPay;
+		case EMPLOYEE_TYPE_HOURLY:
+			double hourlyTaxDeductedPay = commonDeductions(grossPay) - calcExtHealth(grossPay)
+					- calcUnionDues(grossPay);
+			return hourlyTaxDeductedPay;
+		case EMPLOYEE_TYPE_CONTRACTOR:
+			double contractorTaxDeductedPay = commonDeductions(grossPay);
+			return contractorTaxDeductedPay;
+		default:
+			return 4;
+		}
+
+	}
+
+	// TODO develop compareTo empNo
+	public int compareTo(Object obj) {
+		if (this == obj)
+			return 0;
+		if (obj == null)
+			return -1;
+		if (getClass() != obj.getClass())
+			return -1;
+		Employee other = (Employee) obj;
+		if (this.getEmpNo() < other.getEmpNo()) {
+			return -1;
+		}
+		if (this.getEmpNo() > other.getEmpNo()) {
+			return 1;
+		}
+		return 0;
+	}
+
+	/**
+	 * Helper method to calculate deductions common to all employees type
+	 * 
+	 * @param grossPay double with employee's calculated gross pay
+	 * @return double with employee's calculated common deductions
+	 * @author Colin Cui and rafaelalarcon
+	 */
+	private double commonDeductions(double grossPay) {
+		return grossPay - calcWithhold(grossPay) - calcCPP(grossPay) - calcEI(grossPay);
 	}
 }
