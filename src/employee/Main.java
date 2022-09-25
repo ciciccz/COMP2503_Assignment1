@@ -26,19 +26,23 @@ public class Main {
 	}
 	
 	/**
-	 * Prints out all the employee details to format
-	 * @param empList
+	 * Method to print out all the employee details to format
+	 * @param empList Employee array with all current employees
+	 * 
+	 * @author Colin Cui and rafaelalarcon
 	 * 
 	 */
-
 	private static void testToString(Employee[] empList) {
 		for (Employee emp : empList) {
 			System.out.println(emp.toString());
 		}
 	}
+	
 	/**
-	 * prints out all the employee's net pay. 
-	 * @param empList
+	 * MEthod to print out all current employee's net pay. 
+	 * @param empList Employee array with all current employees
+	 * 
+	 * Employee array with all current employees
 	 */
 	private static void testCalcNetPay(Employee[] empList) {
 		System.out.println(empList[0].calcNetPay(20));
@@ -52,6 +56,8 @@ public class Main {
 	 * @param a double number with amount
 	 * @param b double number with amount
 	 * @return boolean to compare equality with 1 cent precision
+	 * 
+	 * Employee array with all current employees
 	 */
 	private static boolean equalDouble(double a, double b) {
 		return Math.abs(a - b) < 0.01;

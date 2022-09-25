@@ -1,7 +1,7 @@
 package employee;
 
 /**
- * Employee class
+ * Employee class with all the methods to add the three employee types
  * 
  * @author Colin Cui and rafaelalarcon
  *
@@ -16,6 +16,17 @@ public class Employee {
 	public static final char EMPLOYEE_TYPE_SALARY = 'S';
 	public static final char EMPLOYEE_TYPE_HOURLY = 'H';
 	public static final char EMPLOYEE_TYPE_CONTRACTOR = 'C';
+	public static final double FIRST_BRACKET_AMOUNT = 1000;
+	public static final double FIRST_TAX_RATE = 0.075;
+	public static final double SECOND_BRACKET_AMOUNT = 2000;
+	public static final double SECOND_TAX_RATE = 0.12;
+	public static final double THIRD_TAX_RATE = 0.17;
+	public static final double FIRST_BRACKET_TOTAL = FIRST_BRACKET_AMOUNT * FIRST_TAX_RATE;
+	public static final double SECOND_BRACKET_TOTAL = FIRST_BRACKET_AMOUNT * SECOND_TAX_RATE;
+	public static final double CPP_RATE = 0.0475;
+	public static final double EI_RATE = 0.018;
+	public static final double EXT_HEALTH_RATE = 0.013;
+	public static final double UNION_RATE = 0.01;
 
 	// Fields for Employee class
 	private int empNo;
@@ -44,8 +55,7 @@ public class Employee {
 		this.type = type;
 		this.payRate = payRate;
 		this.maxHours = maxHours;
-		}
-	
+	}
 
 	/**
 	 * Copy parameterized constructor for Employee class
@@ -232,34 +242,30 @@ public class Employee {
 	 * Method to calculate employee's federal income tax deductions
 	 * 
 	 * @param grossWkPay double with employee's gross pay per week
-	 * @return double with employee's deducted amount from Federal Income Tax; applicable to all employees
+	 * @return double with employee's deducted amount from Federal Income Tax;
+	 *         applicable to all employees
 	 * @author Colin Cui and rafaelalarcon
 	 */
 	public double calcWithhold(double grossWkPay) {
 
-		final double FIRST_BRACKET_AMOUNT = 1000;
-		final double SECOND_BRACKET_AMOUNT = 2000;
-		final double FIRST_TAX_RATE = 0.075;
-		final double SECOND_TAX_RATE = 0.12;
-		final double THIRD_TAX_RATE = 0.17;
-		final double FIRST_BRACKET_TOTAL = FIRST_BRACKET_AMOUNT * FIRST_TAX_RATE;
-		final double SECOND_BRACKET_TOTAL = FIRST_BRACKET_AMOUNT * SECOND_TAX_RATE;
-		
-		return grossWkPay < FIRST_BRACKET_AMOUNT ? grossWkPay * FIRST_TAX_RATE
-				:grossWkPay > SECOND_BRACKET_AMOUNT ? (grossWkPay - SECOND_BRACKET_AMOUNT) 
-						* THIRD_TAX_RATE + FIRST_BRACKET_TOTAL + SECOND_BRACKET_TOTAL
-				:(grossWkPay - FIRST_BRACKET_AMOUNT) * SECOND_TAX_RATE + FIRST_BRACKET_TOTAL;
+		// @formatter:off
+		return grossWkPay < FIRST_BRACKET_AMOUNT 
+				? grossWkPay * FIRST_TAX_RATE 
+				: grossWkPay > SECOND_BRACKET_AMOUNT 
+					? (grossWkPay - SECOND_BRACKET_AMOUNT) * THIRD_TAX_RATE + FIRST_BRACKET_TOTAL + SECOND_BRACKET_TOTAL
+					: (grossWkPay - FIRST_BRACKET_AMOUNT) * SECOND_TAX_RATE + FIRST_BRACKET_TOTAL;
+		// @formatter:on
 	}
 
 	/**
 	 * Method to calculate employee's CPP deduction
 	 * 
 	 * @param grossWkPay double with employee's gross pay per week
-	 * @return double with employees deducted amount from CPP; applicable to all employees
+	 * @return double with employees deducted amount from CPP; applicable to all
+	 *         employees
 	 * @author Colin Cui and rafaelalarcon
 	 */
 	public double calcCPP(double grossWkPay) {
-		final double CPP_RATE = 0.0475;
 		return grossWkPay * CPP_RATE;
 	}
 
@@ -267,11 +273,11 @@ public class Employee {
 	 * Method to calculate employee's EI deduction
 	 * 
 	 * @param grossWkPay double with employees gross pay per week
-	 * @return double with employee's deducted amount from EI; applicable to all employees
+	 * @return double with employee's deducted amount from EI; applicable to all
+	 *         employees
 	 * @author Colin Cui and rafaelalarcon
 	 */
 	public double calcEI(double grossWkPay) {
-		final double EI_RATE = 0.018;
 		return grossWkPay * EI_RATE;
 	}
 
@@ -279,11 +285,11 @@ public class Employee {
 	 * Method to calculate employees' extended health benefit deduction
 	 * 
 	 * @param grossWkPay double with employees gross pay per week
-	 * @return double with employee's deducted amount from extended health benefit; exludes contractor type
+	 * @return double with employee's deducted amount from extended health benefit;
+	 *         excludes contractor type
 	 * @author Colin Cui and rafaelalarcon
 	 */
 	public double calcExtHealth(double grossWkPay) {
-		final double EXT_HEALTH_RATE = 0.013;
 		return type == EMPLOYEE_TYPE_CONTRACTOR ? 0 : grossWkPay * EXT_HEALTH_RATE;
 	}
 
@@ -295,57 +301,74 @@ public class Employee {
 	 * @author Colin Cui and rafaelalarcon
 	 */
 	public double calcUnionDues(double grossWkPay) {
-		final double UNION_RATE = 0.01;
 		return type == EMPLOYEE_TYPE_HOURLY ? grossWkPay * UNION_RATE : 0;
-	}
-	
-	/**
-	 * 
-	 * @param grossWkPay
-	 * @return double; total of all deductions of an employee.
-	 */
-	public double calcAllDeductions(double grossWkPay) {
-		return calcWithhold(grossWkPay) + calcCPP(grossWkPay) + calcEI(grossWkPay) + 
-				calcExtHealth(grossWkPay) + calcUnionDues(grossWkPay);
 	}
 
 	/**
+	 * Method helper to calculate all deductions
 	 * 
-	 * @param double, hoursWorked weekly
-	 * @return double, net pay weekly 
+	 * @param grossWkPay double amount with employee's weekly gross pay
+	 * @return double amount of all deductions of an employee.
+	 * @author Colin Cui and rafaelalarcon
+	 */
+	public double calcAllDeductions(double grossWkPay) {
+		return calcWithhold(grossWkPay) + calcCPP(grossWkPay) + calcEI(grossWkPay) + calcExtHealth(grossWkPay)
+				+ calcUnionDues(grossWkPay);
+	}
+
+	/**
+	 * Method for calculating employee's weekly net pay
+	 * 
+	 * @param hoursWorked ddouble employee's weekly worked hours
+	 * @return double amount of employee's net pay (after corresponding deductions)
 	 */
 	public double calcNetPay(double hoursWorked) {
 		double grossPay = calcGrossPay(hoursWorked);
 		return grossPay - calcAllDeductions(grossPay);
 	}
+	
+
 	/**
+	 * Method to compare employee's number
 	 * 
 	 * @param otherEmployee
-	 * @return int; 1 if this employeeNo is higher than the one compared. 0 if same. -1 if lower.
+	 * @return int; 1 if this employeeNo is higher than the one compared. 0 if same,
+	 *         -1 if lower
+	 * @author Colin Cui and rafaelalarcon
 	 */
 	public int compareTo(Employee otherEmployee) {
-		return empNo > otherEmployee.getEmpNo() ? 1 
-				:empNo < otherEmployee.getEmpNo() ? -1 
-				:0;
+		return empNo > otherEmployee.getEmpNo() ? 1 : empNo < otherEmployee.getEmpNo() ? -1 : 0;
 	}
 
 	/**
-	 * ToString method
+	 * ToString method to print the employees
+	 * 
+	 * @author Colin Cui and rafaelalarcon
 	 */
 	public String toString() {
+	
+		// @formatter:off
 		return String.format(
-				"Employee's number: " + "\t\t%d%n" + "Employee's name: " + "\t\t%s%n" + "Employee's department: "
-						+ "\t\t%s%n" + "Employee's type: " + "\t\t%s%n" + "Employee's hourly pay rate: " + "\t%.2f%n"
-						+ "Employee's maximum hours: " + "\t%.2f%n",
-				getEmpNo(), getEmpName(), getDeparment(), getTypeFull(), getPayRate(), getMaxHours());
+				"Employee's number: " + "\t\t%d%n" 
+				+ "Employee's name: " + "\t\t%s%n" 
+				+ "Employee's department: " + "\t\t%s%n" 
+				+ "Employee's type: " + "\t\t%s%n" 
+				+ "Employee's hourly pay rate: " + "\t%.2f%n"
+				+ "Employee's maximum hours: " + "\t%.2f%n",
+				getEmpNo(), getEmpName(), getDeparment(), 
+				getTypeFull(), getPayRate(), getMaxHours());
+		// @formatter:on
 
 	}
+
 	/**
-	 * Helps toString() to display full name of the employee type. 
+	 * Method helper toString() to display full name of the employee type.
+	 * 
 	 * @return String, type of employee
+	 * @author Colin Cui and rafaelalarcon
 	 */
 	private String getTypeFull() {
-		switch(getType()) {
+		switch (getType()) {
 		case EMPLOYEE_TYPE_SALARY:
 			return "Salary";
 		case EMPLOYEE_TYPE_HOURLY:

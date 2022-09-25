@@ -9,12 +9,17 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * @author rafaelalarcon
- *
+ * Test for Employee class constructor, CalcNetPay, and compareTo methods
+ * 
+ * @author Colin Cui and rafaelalarcon
  */
 public class EmployeeTest {
 	
-	
+	/**
+	 * Instantiation of Employee objects for testing
+	 * 
+	 * @author Colin Cui and rafaelalarcon
+	 */
 	Employee[] empList;
 	
 	@Before	
@@ -26,9 +31,10 @@ public class EmployeeTest {
 		};
 	}
 
-	
 	/**
-	 * Test method for {@link employee.Employee#calcNetPay(double)}.
+	 * Test method for calcNetPay method
+	 * 
+	 * @author Colin Cui and rafaelalarcon
 	 */
 	@Test
 	public void testCalcNetPay() {
@@ -44,7 +50,9 @@ public class EmployeeTest {
 }
 
 	/**
-	 * Test method for {@link employee.Employee#compareTo(java.lang.Object)}.
+	 * Test method for employee comparteTo method
+	 * 
+	 * @author Colin Cui and rafaelalarcon
 	 */
 	@Test
 	public void testCompareTo() {
