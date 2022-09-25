@@ -33,12 +33,19 @@ public class Main {
 	 * @author Colin Cui and rafaelalarcon
 	 */
 	public static void main(String[] args) {
+		Employee emp_1 = makeEmployee(EMP_NUMBER_1, NAME_1, DEPARTMENT_1, TYPE_1, PAY_RATE_1, MAX_HOURS_1);
+		Employee emp_2 = makeEmployee(EMP_NUMBER_2, NAME_2, DEPARTMENT_2, TYPE_2, PAY_RATE_2, MAX_HOURS_2);
+		Employee emp_3 = makeEmployee(EMP_NUMBER_3, NAME_3, DEPARTMENT_3, TYPE_3, PAY_RATE_3, MAX_HOURS_3);
 
 		testEmptyEmployee();
 		testCalcNetPay();
+		System.out.println(emp_1);
+		System.out.println(emp_2);
+		System.out.println(emp_3);
 		System.out.println("System working as expected");
 	}
 
+	
 	/**
 	 * Method to test setters and getters
 	 */

@@ -298,7 +298,11 @@ public class Employee {
 		return 0;
 	}
 
-	// TODO develop Net Pay calculation
+	/**
+	 * 
+	 * @param grossPay
+	 * @return
+	 */
 	public double calcNetPay(double grossPay) {
 		switch (type) {
 		case EMPLOYEE_TYPE_SALARY:
@@ -317,7 +321,11 @@ public class Employee {
 
 	}
 
-	// TODO develop compareTo empNo
+	/**
+	 * 
+	 * @param obj
+	 * @return
+	 */
 	public int compareTo(Object obj) {
 		if (this == obj)
 			return 0;
@@ -336,6 +344,18 @@ public class Employee {
 	}
 
 	/**
+	 * ToString method
+	 */
+	public String toString() {
+		return String.format(
+				"Employee's number: " + "\t\t%d%n" + "Employee's name: " + "\t\t%s%n" + "Employee's department: "
+						+ "\t\t%s%n" + "Employee's type: " + "\t\t%s%n" + "Employee's hourly pay rate: " + "\t%.2f%n"
+						+ "Employee's maximum hours: " + "\t%.2f%n",
+				getEmpNo(), getEmpName(), getDeparment(), getTypeFull(), getPayRate(), getMaxHours());
+
+	}
+
+	/**
 	 * Helper method to calculate deductions common to all employees type
 	 * 
 	 * @param grossPay double with employee's calculated gross pay
@@ -344,5 +364,18 @@ public class Employee {
 	 */
 	private double commonDeductions(double grossPay) {
 		return grossPay - calcWithhold(grossPay) - calcCPP(grossPay) - calcEI(grossPay);
+	}
+
+	private String getTypeFull() {
+		switch(getType()) {
+		case EMPLOYEE_TYPE_SALARY:
+			return "Salary";
+		case EMPLOYEE_TYPE_HOURLY:
+			return "Hourly";
+		case EMPLOYEE_TYPE_CONTRACTOR:
+			return "Contractor";
+		default:
+			return "unknown";
+		}
 	}
 }
