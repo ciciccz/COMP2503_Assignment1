@@ -36,7 +36,7 @@ public class Main {
 
 		testEmptyEmployee();
 		testCalcNetPay();
-		System.out.println("Done");
+		System.out.println("System working as expected");
 	}
 
 	/**
