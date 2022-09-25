@@ -248,13 +248,13 @@ public class Employee {
 	 */
 	public double calcWithhold(double grossWkPay) {
 
-		// @formatter:off
-		return grossWkPay < FIRST_BRACKET_AMOUNT 
-				? grossWkPay * FIRST_TAX_RATE 
-				: grossWkPay > SECOND_BRACKET_AMOUNT 
-					? (grossWkPay - SECOND_BRACKET_AMOUNT) * THIRD_TAX_RATE + FIRST_BRACKET_TOTAL + SECOND_BRACKET_TOTAL
-					: (grossWkPay - FIRST_BRACKET_AMOUNT) * SECOND_TAX_RATE + FIRST_BRACKET_TOTAL;
-		// @formatter:on
+		if (grossWkPay < FIRST_BRACKET_AMOUNT) {
+			return grossWkPay * FIRST_TAX_RATE;
+		}
+		if (grossWkPay > SECOND_BRACKET_AMOUNT) {
+			return (grossWkPay - SECOND_BRACKET_AMOUNT) * THIRD_TAX_RATE + FIRST_BRACKET_TOTAL + SECOND_BRACKET_TOTAL;
+		}
+		return (grossWkPay - FIRST_BRACKET_AMOUNT) * SECOND_TAX_RATE + FIRST_BRACKET_TOTAL;
 	}
 
 	/**
@@ -312,8 +312,8 @@ public class Employee {
 	 * @author Colin Cui and rafaelalarcon
 	 */
 	public double calcAllDeductions(double grossWkPay) {
-		return calcWithhold(grossWkPay) + calcCPP(grossWkPay) + calcEI(grossWkPay) + calcExtHealth(grossWkPay)
-				+ calcUnionDues(grossWkPay);
+		return calcWithhold(grossWkPay) + calcCPP(grossWkPay) + calcEI(grossWkPay) 
+				+ calcExtHealth(grossWkPay) + calcUnionDues(grossWkPay);
 	}
 
 	/**
@@ -327,7 +327,6 @@ public class Employee {
 		return grossPay - calcAllDeductions(grossPay);
 	}
 	
-
 	/**
 	 * Method to compare employee's number
 	 * 
