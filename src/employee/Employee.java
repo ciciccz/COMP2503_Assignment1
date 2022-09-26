@@ -319,7 +319,7 @@ public class Employee {
 	/**
 	 * Method for calculating employee's weekly net pay
 	 * 
-	 * @param hoursWorked ddouble employee's weekly worked hours
+	 * @param hoursWorked double employee's weekly worked hours
 	 * @return double amount of employee's net pay (after corresponding deductions)
 	 */
 	public double calcNetPay(double hoursWorked) {
@@ -340,7 +340,7 @@ public class Employee {
 	}
 
 	/**
-	 * ToString method to print the employees
+	 * ToString method to format print the current employees
 	 * 
 	 * @author Colin Cui and rafaelalarcon
 	 */
@@ -352,7 +352,7 @@ public class Employee {
 				+ "Employee's name: " + "\t\t%s%n" 
 				+ "Employee's department: " + "\t\t%s%n" 
 				+ "Employee's type: " + "\t\t%s%n" 
-				+ "Employee's hourly pay rate: " + "\t%.2f%n"
+				+ "Employee's hourly pay rate: " + "\t$%.2f%n"
 				+ "Employee's maximum hours: " + "\t%.2f%n",
 				getEmpNo(), getEmpName(), getDeparment(), 
 				getTypeFull(), getPayRate(), getMaxHours());

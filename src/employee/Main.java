@@ -30,7 +30,6 @@ public class Main {
 	 * @param empList Employee array with all current employees
 	 * 
 	 * @author Colin Cui and rafaelalarcon
-	 * 
 	 */
 	private static void testToString(Employee[] empList) {
 		for (Employee emp : empList) {
@@ -39,15 +38,15 @@ public class Main {
 	}
 	
 	/**
-	 * MEthod to print out all current employee's net pay. 
+	 * Method to print out all current employee's net pay. 
 	 * @param empList Employee array with all current employees
 	 * 
-	 * Employee array with all current employees
+	 * @author Colin Cui and rafaelalarcon
 	 */
 	private static void testCalcNetPay(Employee[] empList) {
-		System.out.println(empList[0].calcNetPay(20));
-		System.out.println(empList[1].calcNetPay(80));
-		System.out.println(empList[2].calcNetPay(120));
+		System.out.printf("Arnold's weekly pay after deductions\t $%.2f%n", empList[0].calcNetPay(20));
+		System.out.printf("Bernie's weekly pay after deductions\t $%.2f%n", empList[1].calcNetPay(80));
+		System.out.printf("Carole's weekly pay after deductions\t $%.2f%n", empList[2].calcNetPay(120));
 	}
 
 	/**
@@ -57,7 +56,7 @@ public class Main {
 	 * @param b double number with amount
 	 * @return boolean to compare equality with 1 cent precision
 	 * 
-	 * Employee array with all current employees
+	 * @author Colin Cui and rafaelalarcon
 	 */
 	private static boolean equalDouble(double a, double b) {
 		return Math.abs(a - b) < 0.01;

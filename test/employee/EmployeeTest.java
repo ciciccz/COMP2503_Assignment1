@@ -1,6 +1,3 @@
-/**
- * 
- */
 package employee;
 
 import static org.junit.Assert.*;
